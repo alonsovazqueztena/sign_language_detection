@@ -1,0 +1,22 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+.pytest_cache
+*.py[cod]
+*.pyo
+
+# Ignore runs generated from the testAI class
+runs
+
+# Environment files
+.env
+
+# Logs
+*.log
+
+# Python virtual environment
+env/
+venv/
+cap/
+
+# Ignore generated files
+*.pyc
