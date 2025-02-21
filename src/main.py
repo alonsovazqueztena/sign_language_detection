@@ -114,7 +114,7 @@ def test_yolo_model_interface():
     try:
         # This initializes the YOLO model interface.
         yolo_interface = YOLOModelInterface(
-            model_path="yolo_epoch_100.pt", 
+            model_path="asl_yolo_epoch_100.pt", 
             confidence_threshold=0.5)
 
         # A test image is loaded for YOLO.
@@ -154,7 +154,7 @@ def test_detection_processor():
 
         # The YOLO model interface is initialized.
         yolo_interface = YOLOModelInterface(
-            model_path="yolo_epoch_100.pt", 
+            model_path="asl_yolo_epoch_100.pt", 
             confidence_threshold=0.5)
 
         # The test image is loaded for YOLO.
@@ -215,7 +215,7 @@ def test_frame_pipeline():
             frame_height=1080, 
             target_width=1920, 
             target_height=1080,
-            model_path="yolo_epoch_100.pt",
+            model_path="asl_yolo_epoch_100.pt",
             confidence_threshold=0.5
         )
 
@@ -255,7 +255,7 @@ def test_frame_pipeline_with_tracking():
             frame_height=1080, 
             target_width=1920, 
             target_height=1080,
-            model_path="yolo_epoch_100.pt",
+            model_path="asl_yolo_epoch_100.pt",
             confidence_threshold=0.5,
             detection_processor=None,
             tracking_system=tracker
