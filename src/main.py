@@ -37,8 +37,8 @@ def test_video_stream_manager():
     try:
         # This initializes the video stream manager.
         video_stream = VideoStreamManager(
-            capture_device=0, frame_width=1920, 
-            frame_height=1080)
+            capture_device=0, frame_width=1280, 
+            frame_height=720)
         
         # This captures a single frame.
         with video_stream as stream:
@@ -71,11 +71,11 @@ def test_frame_processor():
     try:
         # This initializes the frame processor.
         processor = FrameProcessor(
-            target_width=1920, target_height=1080)
+            target_width=1280, target_height=720)
 
         # This loads a dummy frame for testing.
         dummy_frame = cv.imread(
-            "../images/drone_mock_test_1.jpg")
+            "../images/sign_language_test_1.jpg")
         
         # If the dummy frame is empty or cannot be found, an error is raised.
         if dummy_frame is None:
@@ -114,12 +114,12 @@ def test_yolo_model_interface():
     try:
         # This initializes the YOLO model interface.
         yolo_interface = YOLOModelInterface(
-            model_path="yolo_epoch_100.pt", 
+            model_path="asl_yolo_epoch_100.pt", 
             confidence_threshold=0.5)
 
         # A test image is loaded for YOLO.
         test_img = cv.imread(
-            "../images/drone_mock_test_1.jpg")
+            "../images/sign_language_test_1.jpg")
         
         # If the test image is empty or cannot be found, an error is raised.
         if test_img is None:
@@ -154,12 +154,12 @@ def test_detection_processor():
 
         # The YOLO model interface is initialized.
         yolo_interface = YOLOModelInterface(
-            model_path="yolo_epoch_100.pt", 
+            model_path="asl_yolo_epoch_100.pt", 
             confidence_threshold=0.5)
 
         # The test image is loaded for YOLO.
         test_img = cv.imread(
-            "../images/drone_mock_test_1.jpg")
+            "../images/sign_language_test_1.jpg")
         
         # If the test image is empty or cannot be found, an error is raised.
         if test_img is None:
@@ -211,11 +211,11 @@ def test_frame_pipeline():
         # The frame pipeline is initialized.
         pipeline = FramePipeline(
             capture_device=0, 
-            frame_width=1920, 
-            frame_height=1080, 
-            target_width=1920, 
-            target_height=1080,
-            model_path="yolo_epoch_100.pt",
+            frame_width=1280, 
+            frame_height=720, 
+            target_width=1280, 
+            target_height=720,
+            model_path="asl_yolo_epoch_100.pt",
             confidence_threshold=0.5
         )
 
@@ -251,11 +251,11 @@ def test_frame_pipeline_with_tracking():
         # Initialize the FramePipeline and pass the tracker.
         pipeline = FramePipeline(
             capture_device=0, 
-            frame_width=1920, 
-            frame_height=1080, 
-            target_width=1920, 
-            target_height=1080,
-            model_path="yolo_epoch_100.pt",
+            frame_width=1280, 
+            frame_height=720, 
+            target_width=1280, 
+            target_height=720,
+            model_path="asl_yolo_epoch_100.pt",
             confidence_threshold=0.5,
             detection_processor=None,
             tracking_system=tracker

@@ -33,7 +33,7 @@ class VideoStreamManager:
     # in, all as arguments.
     def __init__(
             self, capture_device=0, 
-            frame_width=1920, frame_height=1080):
+            frame_width=1280, frame_height=720):
         """Initialize the video stream manager.
         
         Keyword arguments:
@@ -79,20 +79,14 @@ class VideoStreamManager:
             cv.CAP_PROP_FRAME_HEIGHT, self.frame_height
             )
 
-        # Any hardware acceleration available on the 
-        # device the code is running on is to be leveraged.
-        self.capture.set(
-            cv.CAP_PROP_HW_ACCELERATION, cv.VIDEO_ACCELERATION_ANY
-            )
-
         # This checks if the HDMI capture card was able 
         # to be connected to and opened.
         if not self.capture.isOpened():
             logging.error(
-                "HDMI capture card open failed."
+                "Webcam open failed."
                 )
             raise RuntimeError(
-                "ERROR: Cannot open the HDMI capture card."
+                "ERROR: Cannot open the laptop webcam."
                 )
 
         # This message is displayed through a log that 
@@ -113,10 +107,10 @@ class VideoStreamManager:
         # an error is raised and output in a log.
         if not self.capture or not self.capture.isOpened():
             logging.error(
-                "The video stream is not initialized."
+                "The webcam stream is not initialized."
                 )
             raise RuntimeError(
-                "ERROR: The video stream cannot be initialized."
+                "ERROR: The webcam stream cannot be initialized."
                 )
 
         # A boolean condition is checked if the
@@ -155,10 +149,10 @@ class VideoStreamManager:
         if self.capture and self.capture.isOpened():
             self.capture.release()
             logging.info(
-                "The video stream was released."
+                "The webcam stream was released."
                 )
             print(
-                "The video stream was successfully released."
+                "The webcam stream was successfully released."
                 )
 
     # This is a simple enter method that only initializes the stream.

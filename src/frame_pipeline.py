@@ -37,11 +37,11 @@ class FramePipeline:
     def __init__(
         self,
         capture_device=0,
-        frame_width=1920,
-        frame_height=1080,
-        target_width=1920,
-        target_height=1080,
-        model_path="yolo_epoch_100.pt",
+        frame_width=1280,
+        frame_height=720,
+        target_width=1280,
+        target_height=720,
+        model_path="asl_yolo_epoch_100.pt",
         confidence_threshold=0.5,
         detection_processor=None,
         tracking_system=None
@@ -118,7 +118,7 @@ class FramePipeline:
                 )
 
              # Prepare the label text.
-            label = f"drone {confidence:.2f}"
+            label = f"{class_id} {confidence:.2f}"
             font = cv.FONT_HERSHEY_TRIPLEX
             font_scale = 2
             thickness = 4

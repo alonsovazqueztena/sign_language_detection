@@ -32,7 +32,7 @@ class YOLOModelInterface:
     # the confidence threshold is the minimum 
     # confidence score for detections.
     def __init__(
-            self, model_path="yolo_epoch_100.pt", 
+            self, model_path="asl_yolo_epoch_100.pt", 
             confidence_threshold=0.5):
         """
         Initializes the YOLO model interface.
@@ -91,9 +91,6 @@ class YOLOModelInterface:
             # This processes the results by adding the detection to a list.
             detections = []
 
-            # Considered drone labels
-            allowed_labels = {"0", "drone", "quadricopter"}
-
             for result in results:
 
                 # This checks if any boxes are available.
@@ -109,7 +106,7 @@ class YOLOModelInterface:
 
                         # If a detection is above the confidence threshold,
                         # it is added to the list of detections.
-                        if confidence >= self.confidence_threshold and label.lower() in allowed_labels:
+                        if confidence >= self.confidence_threshold:
                             detections.append({
                                 "bbox": [x_min, y_min, x_max, y_max],
                                 "confidence": confidence,

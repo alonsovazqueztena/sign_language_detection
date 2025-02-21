@@ -32,8 +32,8 @@ class FrameProcessor:
     
     # The target width and height of the frame are taken in as arguments.
     def __init__(
-            self, target_width=1920, 
-            target_height=1080):
+            self, target_width=1280, 
+            target_height=720):
         """Initialize the frame processor.
 
         Keyword arguments:
