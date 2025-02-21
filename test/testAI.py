@@ -15,7 +15,7 @@ model = YOLO("..\src\sl_yolo_epoch_100.pt")
 # the image size is set to 640, and the processed 
 # image is displayed and saved.
 results = model.predict(
-    "..\images\sign_language_test_2.jpg", conf=0.5, 
+    "..\images\sign_language_test_2.jpg", conf=0.1, 
     imgsz=640, show=True, save=True, project="..\\runs")
 
 # We print the bounding boxes of the detected objects here.

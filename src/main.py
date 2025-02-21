@@ -114,12 +114,12 @@ def test_yolo_model_interface():
     try:
         # This initializes the YOLO model interface.
         yolo_interface = YOLOModelInterface(
-            model_path="asl_yolo_epoch_100.pt", 
-            confidence_threshold=0.5)
+            model_path="sl_yolo_epoch_100.pt", 
+            confidence_threshold=0.1)
 
         # A test image is loaded for YOLO.
         test_img = cv.imread(
-            "../images/sign_language_test_1.jpg")
+            "../images/sign_language_test_2.jpg")
         
         # If the test image is empty or cannot be found, an error is raised.
         if test_img is None:
@@ -154,8 +154,8 @@ def test_detection_processor():
 
         # The YOLO model interface is initialized.
         yolo_interface = YOLOModelInterface(
-            model_path="asl_yolo_epoch_100.pt", 
-            confidence_threshold=0.5)
+            model_path="sl_yolo_epoch_100.pt", 
+            confidence_threshold=0.1)
 
         # The test image is loaded for YOLO.
         test_img = cv.imread(
@@ -179,7 +179,7 @@ def test_detection_processor():
         # The detection processor is initialized.
         detection_processor = DetectionProcessor(
             target_classes=None,
-            confidence_threshold=0.5
+            confidence_threshold=0.1
         )
 
         # Detections are processed by the detection processor.
@@ -215,8 +215,8 @@ def test_frame_pipeline():
             frame_height=720, 
             target_width=1280, 
             target_height=720,
-            model_path="asl_yolo_epoch_100.pt",
-            confidence_threshold=0.5
+            model_path="sl_yolo_epoch_100.pt",
+            confidence_threshold=0.1
         )
 
         # The frame pipeline is run and stops when the user quits.
@@ -255,8 +255,8 @@ def test_frame_pipeline_with_tracking():
             frame_height=720, 
             target_width=1280, 
             target_height=720,
-            model_path="asl_yolo_epoch_100.pt",
-            confidence_threshold=0.5,
+            model_path="sl_yolo_epoch_100.pt",
+            confidence_threshold=0.1,
             detection_processor=None,
             tracking_system=tracker
         )

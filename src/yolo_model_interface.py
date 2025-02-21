@@ -32,8 +32,8 @@ class YOLOModelInterface:
     # the confidence threshold is the minimum 
     # confidence score for detections.
     def __init__(
-            self, model_path="asl_yolo_epoch_100.pt", 
-            confidence_threshold=0.5):
+            self, model_path="sl_yolo_epoch_100.pt", 
+            confidence_threshold=0.1):
         """
         Initializes the YOLO model interface.
 

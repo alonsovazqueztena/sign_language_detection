@@ -41,8 +41,8 @@ class FramePipeline:
         frame_height=720,
         target_width=1280,
         target_height=720,
-        model_path="asl_yolo_epoch_100.pt",
-        confidence_threshold=0.5,
+        model_path="sl_yolo_epoch_100.pt",
+        confidence_threshold=0.1,
         detection_processor=None,
         tracking_system=None
     ):
