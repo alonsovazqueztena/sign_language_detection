@@ -1,4 +1,4 @@
-# Mini C-RAM Counter-Drone System
+# Sign Language Detection System
 
 ## Table of Contents
 - [Project Overview](#project-overview)
@@ -15,6 +15,7 @@
 
 ## Project Overview
 A real-time counter-drone system using computer vision and object tracking. Detects UAVs in video streams and simulates countermeasures (laser activation). Designed for Raspberry Pi with optional hardware integration.
+
 
 ## Key Features
 - Real-time object detection using YOLOv5
@@ -42,13 +43,13 @@ A real-time counter-drone system using computer vision and object tracking. Dete
 
 ### Prerequisites
 - Python 3.8+
-- Raspberry Pi OS (Bullseye) or Ubuntu 20.04
+- Raspberry Pi OS (Bullseye) or Ubuntu 20.04 or later
 - USB Webcam or IP Camera
 
 ```bash
 # Clone repository
-git clone https://github.com/alonsovazqueztena/Mini_C-RAM_Capstone.git
-cd Mini_C-RAM_Capstone
+git clone https://github.com/alonsovazqueztena/sign_language_detection.git
+cd sign_language_detection
 
 # Create virtual environment
 python -m venv venv
@@ -86,6 +87,10 @@ hardware:
 
 ### Basic Operation
 ```bash
+
+#cd into src/
+cd src/
+
 # Start system with default config
 python main.py
 ```
@@ -114,9 +119,9 @@ python main.py --config custom_config.yaml
 - **USB Webcam**: Plug into available USB port
 - **IP Camera**: Set RTSP URL in `config.yaml`
 
-**Laser Control**
+<!-- **Laser Control**
 - Connect laser module to GPIO 18
-- Power: 5V PWM compatible laser diode
+- Power: 5V PWM compatible laser diode -->
 
 **Safety Measures**
 - Always enable `safe_mode` during development
