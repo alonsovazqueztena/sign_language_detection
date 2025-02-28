@@ -79,34 +79,18 @@ class FrameProcessor:
         
         # This demonstrates in a log what dimension the frame was resized to.
         logging.info(
-            f"Resized frame to: {self.target_width}x{self.target_height}"
+            f"Resized frame to: {self.target_width} by {self.target_height}"
             )
 
-        # This converts the frame from BGR to RGB for YOLO input.
-        rgb_frame = cv.cvtColor(
-            resized_frame, cv.COLOR_BGR2RGB)
-        rgb_frame = rgb_frame.astype(np.float32)
-        logging.info(
-            "Converted frame from BGR to RGB."
-            )
+        # This adds a batch dimension as the AI model expects 4D input: 
+        # batch, width, height, and channels.
 
-        # This normalizes pixel values to range [0, 1].
-        normalized_frame = rgb_frame / 255.0
-        logging.info(
-            "Normalized frame pixel values to range [0, 1]."
-            )
-
-        # This adds a batch dimension as YOLO expects 4D input: 
-        # batch_size, width, height, and channels.
+        # We are looking at one frame at a time for the batch.
         preprocessed_frame = np.expand_dims(
-            normalized_frame, axis=0)
+            resized_frame, axis=0)
         logging.info(
             f"Added batch dimension. Preprocessed frame shape: {preprocessed_frame.shape}"
             )
-        
-        # Transpose to (batch, channels, height, width) if your YOLO model expects it
-        preprocessed_frame = preprocessed_frame.transpose(0, 3, 1, 2)
-        logging.info(f"Added batch dimension and transposed frame. Preprocessed frame shape: {preprocessed_frame.shape}")
         
         # We return the preprocessed frame.
         return preprocessed_frame
