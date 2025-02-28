@@ -79,14 +79,14 @@ class VideoStreamManager:
             cv.CAP_PROP_FRAME_HEIGHT, self.frame_height
             )
 
-        # This checks if the HDMI capture card was able 
-        # to be connected to and opened.
+        # This checks if capture device can be connected to
+        # and opened.
         if not self.capture.isOpened():
-            logging.error(
-                "Webcam open failed."
+            logging.critical(
+                "Capture device open failed."
                 )
             raise RuntimeError(
-                "ERROR: Cannot open the laptop webcam."
+                "ERROR: Cannot open the capture device."
                 )
 
         # This message is displayed through a log that 
@@ -116,16 +116,21 @@ class VideoStreamManager:
         # A boolean condition is checked if the
         # frame from the HDMI capture card can be received.
         ret, frame = self.capture.read()
+
+        # If the frame cannot be captured, an error is 
+        # raised and output in a log.
         if not ret:
             logging.error(
                 "Failed to capture the frame."
                 )
-            return None
+            raise RuntimeError(
+                "ERROR: The frames cannot be captured."
+            )
 
-        # If an invalid frame is received, an error is 
-        # raised and output in a log.
+        # If an invalid frame is received, output a warning 
+        # in a log.
         if frame is None:
-            logging.error(
+            logging.warning(
                 "The captured frame is None (invalid)."
                 )
             return None
@@ -150,9 +155,6 @@ class VideoStreamManager:
             self.capture.release()
             logging.info(
                 "The webcam stream was released."
-                )
-            print(
-                "The webcam stream was successfully released."
                 )
 
     # This is a simple enter method that only initializes the stream.

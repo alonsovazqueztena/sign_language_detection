@@ -72,17 +72,6 @@ class YOLOModelInterface:
 
         try:
 
-            # If the frame has shape (3, H, W), convert it to (H, W, 3)
-            if isinstance(frame, np.ndarray) and frame.ndim == 3 and frame.shape[0] == 3:
-                frame = frame.transpose(1, 2, 0)
-
-            # If the frame is normalized (float32 with max value <= 1.0), convert it back.
-            if isinstance(frame, np.ndarray) and frame.dtype == np.float32 and frame.max() <= 1.0:
-                frame = (frame * 255).astype(np.uint8)
-                # The frame was converted to RGB in your FrameProcessor,
-                # but YOLO expects BGR. Convert it back:
-                frame = cv.cvtColor(frame, cv.COLOR_RGB2BGR)
-
             # This runs an inference on a frame.
             results = self.model.predict(
                 source=frame, imgsz=640, 
@@ -130,19 +119,6 @@ class YOLOModelInterface:
         """Runs inference on a batch of frames and extract detections."""
         
         try:
-            processed_frames = []
-            for frame in frames:
-                if isinstance(frame, np.ndarray) and frame.ndim == 3 and frame.shape[0] == 3:
-                    frame = frame.transpose(1, 2, 0)
-                processed_frames.append(frame)
-
-                # If the frame is normalized (float32 with max value <= 1.0), convert it back.
-                if isinstance(frame, np.ndarray) and frame.dtype == np.float32 and frame.max() <= 1.0:
-                    frame = (frame * 255).astype(np.uint8)
-                    # The frame was converted to RGB in your FrameProcessor,
-                    # but YOLO expects BGR. Convert it back:
-                    frame = cv.cvtColor(frame, cv.COLOR_RGB2BGR)
-            
             # This runs an inference on a batch of frames.
             results = self.model.predict(
                 source=frames, imgsz=640, 
@@ -150,6 +126,7 @@ class YOLOModelInterface:
 
             # This processes the results by adding the detections to a list.
             all_detections = []
+
             for result in results:
                 detections = []
 
@@ -162,6 +139,7 @@ class YOLOModelInterface:
                         confidence = box.conf[0].item()
                         class_id = int(
                             box.cls[0].item())
+                        label = self.model.names[class_id]
 
                         # If a detection is above the confidence threshold,
                         # it is added to the list of detections.
@@ -169,7 +147,8 @@ class YOLOModelInterface:
                             detections.append({
                                 "bbox": [x_min, y_min, x_max, y_max],
                                 "confidence": confidence,
-                                "class_id": class_id
+                                "class_id": class_id,
+                                "label" : label
                             })
 
                 # Any detections found in a frame is 
