@@ -1,5 +1,5 @@
 # Alonso Vazquez Tena
-# STG-452: Software Development Life Cycle (SDLC) II
+# SWE-452: Software Development Life Cycle (SDLC) II
 # March 2, 2025
 # I used source code from the following 
 # website to complete this assignment:
