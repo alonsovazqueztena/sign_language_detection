@@ -1,6 +1,6 @@
 # Alonso Vazquez Tena
-# STG-452: Capstone Project II
-# February 3, 2025
+# STG-452: Software Development Life Cycle (SDLC) II
+# March 2, 2025
 # This is my own code.
 
 # We import the YOLO model's class here.

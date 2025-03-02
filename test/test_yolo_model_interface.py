@@ -1,6 +1,6 @@
 # Alonso Vazquez Tena
-# STG-452: Capstone Project II
-# February 3, 2025
+# STG-452: Software Development Life Cycle (SDLC) II
+# March 2, 2025
 # I used source code from the following 
 # website to complete this assignment:
 # https://chatgpt.com/share/67a18fe4-56ec-800e-bf00-4af40519d328
