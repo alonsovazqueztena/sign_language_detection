@@ -11,34 +11,30 @@
 # an error has occurred or the execution of the class was a success.
 import logging
 
-import numpy as np
-
-import cv2 as cv
-
 # We are using the YOLOv11n model for object detection.
 from ultralytics import YOLO
 
 
-# This class serves to detect objects in a frame using the YOLO model.
+# This class serves to detect objects in a frame using the AI model.
 
-# This ensures that the YOLO model will confidently detect objects.
-class YOLOModelInterface:
-    """Interface for the YOLO model to run inference 
+# This ensures that the AI model will confidently detect objects.
+class AIModelInterface:
+    """Interface for the AI model to run inference 
     and process detections."""
 
-    # This method initializes the YOLO model interface.
+    # This method initializes the AI model interface.
 
-    # The model path is where our trained YOLO model is stored and
+    # The model path is where our trained AI model is stored and
     # the confidence threshold is the minimum 
     # confidence score for detections.
     def __init__(
-            self, model_path="sl_yolo_epoch_100.pt", 
+            self, model_path="sign_language_detector_ai.pt", 
             confidence_threshold=0.5):
         """
-        Initializes the YOLO model interface.
+        Initializes the AI model interface.
 
         Keyword arguments:
-            model_path -- path to the YOLO model file.
+            model_path -- path to the AI model file.
             confidence_threshold -- minimum confidence score for detections.
         """
         self.model_path = model_path
@@ -53,16 +49,16 @@ class YOLOModelInterface:
             format="%(asctime)s - %(levelname)s - %(message)s"
             )
 
-        # This loads the YOLO model from the specified path.
+        # This loads the AI model from the specified path.
         try:
             self.model = YOLO(
                 self.model_path)
             logging.info(
-                f"YOLO model loaded successfully from {self.model_path}"
+                f"AI model loaded successfully from {self.model_path}"
                 )
         except Exception as e:
             logging.error(
-                f"Failed to load YOLO model from {self.model_path}: {e}"
+                f"Failed to load AI model from {self.model_path}: {e}"
                 )
             raise
 

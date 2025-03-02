@@ -21,7 +21,7 @@ import cv2 as cv
 import numpy as np
 
 
-# This class serves to process frames for the YOLO model.
+# This class serves to process frames for the AI model.
 
 # This ensures that the frames can be processed to ensure
 # more accurate object detection.
@@ -38,8 +38,8 @@ class FrameProcessor:
 
         Keyword arguments:
         self -- instance of the frame processor
-        target_width -- target width of the frame (default 640)
-        target_height -- target height of the frame (default 640)
+        target_width -- target width of the frame (default 1280)
+        target_height -- target height of the frame (default 720)
         """
         self.target_width = target_width
         self.target_height = target_height
@@ -53,10 +53,10 @@ class FrameProcessor:
             format="%(asctime)s - %(levelname)s - %(message)s"
             )
     
-    # This preprocesses a single frame for YOLO input.
+    # This preprocesses a single frame for AI input.
     def preprocess_frame(
             self, frame):
-        """Preprocess a single frame for YOLO input."""
+        """Preprocess a single frame for AI input."""
 
         # If the frame is invalid or empty, an error is logged and raised.
         if frame is None or frame.size == 0:
@@ -79,7 +79,7 @@ class FrameProcessor:
         
         # This demonstrates in a log what dimension the frame was resized to.
         logging.info(
-            f"Resized frame to: {self.target_width} by {self.target_height}"
+            f"Resized frame to: {self.target_width} x {self.target_height}"
             )
 
         # This adds a batch dimension as the AI model expects 4D input: 
@@ -95,13 +95,13 @@ class FrameProcessor:
         # We return the preprocessed frame.
         return preprocessed_frame
 
-    # This preprocesses multiple frames for YOLO input.
+    # This preprocesses multiple frames for AI input.
 
     # This takes a list of frames and returns a 
     # batch of preprocessed frames.
     def preprocess_frames(
             self, frames):
-        """Preprocesses multiple frames for YOLO input."""
+        """Preprocesses multiple frames for AI input."""
 
         # If the frames are invalid or empty, an error is logged and raised.
         if not frames or not isinstance(

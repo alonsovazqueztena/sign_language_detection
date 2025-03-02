@@ -3,11 +3,11 @@
 # March 2, 2025
 # This is my own code.
 
-# We import the YOLO model's class here.
+# We import the AI model's class here.
 from ultralytics import YOLO
 
-# We create an instance of the trained YOLO model here.
-model = YOLO("..\src\sl_yolo_epoch_100.pt")
+# We create an instance of the trained AI model here.
+model = YOLO("..\src\sign_language_detector_ai.pt")
 
 # We use the model to infer on a test image here.
 

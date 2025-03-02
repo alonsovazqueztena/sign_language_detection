@@ -22,16 +22,16 @@ from detection_processor import DetectionProcessor
 from frame_processor import FrameProcessor
 from tracking_system import TrackingSystem
 from video_stream_manager import VideoStreamManager
-from yolo_model_interface import YOLOModelInterface
+from ai_model_interface import AIModelInterface
 
 
 # This class serves as a frame pipeline that 
 # captures frames from a video stream,
-# processes them, runs YOLO + detection filtering, 
+# processes them, runs AI + detection filtering, 
 # then tracks objects over time.
 class FramePipeline:
     """A pipeline that captures frames from a video stream, processes them, 
-    runs YOLO + detection filtering, then tracks objects over time."""
+    runs AI + detection filtering, then tracks objects over time."""
 
     # This method initializes the frame pipeline.
     def __init__(
@@ -41,7 +41,7 @@ class FramePipeline:
         frame_height=720,
         target_width=1280,
         target_height=720,
-        model_path="sl_yolo_epoch_100.pt",
+        model_path="sign_language_detector_ai.pt",
         confidence_threshold=0.5,
         detection_processor=None,
         tracking_system=None
@@ -54,7 +54,7 @@ class FramePipeline:
         frame_height -- height of the video frame,
         target_width -- target width for a preprocessed frame,
         target_height -- target height for a preprocessed frame,
-        model_path -- path to the YOLO model file,
+        model_path -- path to the AI model file,
         confidence_threshold -- minimum confidence score for detections,
         detection_processor -- instance of DetectionProcessor 
         to filter detections,
@@ -73,8 +73,8 @@ class FramePipeline:
             target_height=target_height
         )
 
-        # Set up the YOLO model interface.
-        self.yolo_model_interface = YOLOModelInterface(
+        # Set up the AI model interface.
+        self.ai_model_interface = AIModelInterface(
             model_path=model_path,
             confidence_threshold=confidence_threshold
         )
@@ -167,7 +167,7 @@ class FramePipeline:
     # This method runs the frame pipeline.
     def run(
             self):
-        """Captures frames, runs preprocessing + YOLO + detection processing,
+        """Captures frames, runs preprocessing + AI + detection processing,
         then updates the tracking system and displays both YOLO detections
         and tracked objects in real time."""
 
@@ -184,13 +184,13 @@ class FramePipeline:
                 # The window is to be small enough for the user to
                 # see and is meant to automatically popup.
                 cv.namedWindow(
-                    "Mini C-RAM View", 
+                    "Sign Language View", 
                     cv.WINDOW_NORMAL)
                 cv.resizeWindow(
-                    "Mini C-RAM View", 
+                    "Sign Language View", 
                     800, 600)
                 cv.setWindowProperty(
-                    "Mini C-RAM View", 
+                    "Sign Language View", 
                     cv.WND_PROP_TOPMOST, 1)
 
                 # Run as long as frames are available.
@@ -202,12 +202,12 @@ class FramePipeline:
                             )
                         break
 
-                    # This preprocesses frame for the YOLO model.
+                    # This preprocesses frame for the AI model.
                     processed_frame = self.frame_processor.preprocess_frame(
                         frame)
 
-                    # This predicts detections using the YOLO model.
-                    raw_detections = self.yolo_model_interface.predict(
+                    # This predicts detections using the AI model.
+                    raw_detections = self.ai_model_interface.predict(
                         processed_frame[0])
                     
                     # This filters detections and adds centroids.
@@ -218,7 +218,7 @@ class FramePipeline:
                     tracked_objects = self.tracking_system.update(
                         processed_detections)
 
-                    # This draws the YOLO bounding boxes.
+                    # This draws the AI bounding boxes.
                     self.draw_detections(
                         frame, processed_detections
                         )
@@ -230,7 +230,7 @@ class FramePipeline:
 
                     # This displays the frame with tracking.
                     cv.imshow(
-                        "Mini C-RAM View", frame
+                        "Sign Language View", frame
                         )
 
                     # This handles the button 'q' to quit.

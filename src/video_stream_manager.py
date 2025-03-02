@@ -20,8 +20,7 @@ import cv2 as cv
 # This class serves as code for a video stream manager.
 
 # This serves to handle the logic to properly
-# take in a video stream connected to the Pi 5 from a camera
-# through an HDMI capture card.
+# take in a video stream from a webcam.
 class VideoStreamManager:
     """Creates and sets up the video stream manager."""
 
@@ -29,7 +28,7 @@ class VideoStreamManager:
     
     # The captured device is taken in as an index,
     # the matching width and height of the lowest available video frame
-    # resolution from the GoPro Hero 5 Black is also taken 
+    # resolution from the webcam is also taken 
     # in, all as arguments.
     def __init__(
             self, capture_device=0, 
@@ -39,8 +38,8 @@ class VideoStreamManager:
         Keyword arguments:
         self -- instance of the video stream manager
         capture_device -- index of video capture stream device (default 0)
-        frame_width -- width of video capture stream frame (default 848)
-        frame_height -- height of video capture stream frame (default 480)
+        frame_width -- width of video capture stream frame (default 1280)
+        frame_height -- height of video capture stream frame (default 720)
         """
         self.capture_device = capture_device
         self.frame_width = frame_width
@@ -56,15 +55,15 @@ class VideoStreamManager:
             format='%(asctime)s - %(levelname)s - %(message)s'
             )
 
-    # This initializes the video stream taken in from the
-    # HDMI capture card off the GoPro Hero 5 Black.
+    # This initializes the video stream taken in
+    # the webcam.
     def initialize_stream(
             self):
         """Initialize the video stream."""
         # The log includes a message displaying that the 
         # video stream is initializing.
         logging.info(
-            "The video stream is initializing..."
+            "The webcam stream is initializing..."
             )
 
         # OpenCV is executed on the video stream.
@@ -79,31 +78,31 @@ class VideoStreamManager:
             cv.CAP_PROP_FRAME_HEIGHT, self.frame_height
             )
 
-        # This checks if capture device can be connected to
+        # This checks if webcam can be connected to
         # and opened.
         if not self.capture.isOpened():
             logging.critical(
-                "Capture device open failed."
+                "Webcam open failed."
                 )
             raise RuntimeError(
-                "ERROR: Cannot open the capture device."
+                "ERROR: Cannot open the webcam."
                 )
 
         # This message is displayed through a log that 
         # the stream has been initialized with a certain resolution.
         logging.info(
-            f"The video stream has been initialized with resolution "
+            f"The webcam stream has been initialized with resolution "
             f"{self.frame_width} by {self.frame_height}."
             )
 
-    # This method gets a frame from the video stream and
+    # This method gets a frame from the webcam and
     # returns it in the program.
     def get_frame(
             self):
-        """Retrieve the frame from the video stream."""
+        """Retrieve the frame from the webcam."""
 
-        # If the HDMI capture card cannot be opened or 
-        # there is no HDMI capture card detected,
+        # If the webcam cannot be opened or 
+        # there is no webcam detected,
         # an error is raised and output in a log.
         if not self.capture or not self.capture.isOpened():
             logging.error(
@@ -113,8 +112,7 @@ class VideoStreamManager:
                 "ERROR: The webcam stream cannot be initialized."
                 )
 
-        # A boolean condition is checked if the
-        # frame from the HDMI capture card can be received.
+        # This reads in the frame.
         ret, frame = self.capture.read()
 
         # If the frame cannot be captured, an error is 
@@ -142,14 +140,14 @@ class VideoStreamManager:
             )
         return frame
 
-    # This method releases the video stream resources upon
+    # This method releases the webcam resources upon
     # key from the user to terminate.
     def release_stream(
             self):
-        """Release the video stream."""
+        """Release the webcam."""
 
-        # If the HDMI capture card is opened and detected
-        # (thus, a video stream exists), the video stream will end and
+        # If the webcam is opened and detected
+        # (thus, a webcam exists), the webcam will end and
         # this will be output in a log.
         if self.capture and self.capture.isOpened():
             self.capture.release()

@@ -7,10 +7,10 @@
 # (used as starter code for basic functionality).
 
 
-# This class processes raw YOLO detections by 
+# This class processes raw AI detections by 
 # filtering based on confidence or class.
 class DetectionProcessor:
-    """Processes raw YOLO detections by filtering 
+    """Processes raw AI detections by filtering 
     based on confidence or class and adding additional 
     metadata like centroids."""
 
