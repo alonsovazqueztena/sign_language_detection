@@ -78,6 +78,12 @@ class VideoStreamManager:
             cv.CAP_PROP_FRAME_HEIGHT, self.frame_height
             )
 
+        # Any hardware acceleration available on the 
+        # device the code is running on is to be leveraged.
+        self.capture.set(
+            cv.CAP_PROP_HW_ACCELERATION, cv.VIDEO_ACCELERATION_ANY
+            )
+
         # This checks if webcam can be connected to
         # and opened.
         if not self.capture.isOpened():
