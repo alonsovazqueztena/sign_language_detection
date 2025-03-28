@@ -1,28 +1,34 @@
 # Alonso Vazquez Tena
-# SWE-452: Software Development Life Cycle (SDLC) II
-# March 2, 2025
+# STG-452: Capstone Project II
+# March 16, 2025
 # I used source code from the following 
 # website to complete this assignment:
 # https://chatgpt.com/share/67a17189-ca30-800e-858d-aac289e6cb56
-# (used as starter code for basic functionality).
+# (used as starter code for basic functionality) and
+# https://chatgpt.com/share/67d77b29-c824-800e-ab25-2cc850596046
+# (used to improve the frame pipeline further).
+
+# This allows for the asynchronous execution of the AI model
+# predictions using threads.
+import concurrent.futures
 
 # This project requires the usage of logs for the developer
 # to understand the conditions of the system, whether
 # an error has occurred or the execution of the class was a success.
 import logging
 
-# This project requires the usage of computer vision.
-
-# In this case, OpenCV will be used.
-import cv2 as cv
-
 # All the classes are imported from the src folder
 # to be used in the frame pipeline class.
+from ai_model_interface import AIModelInterface
 from detection_processor import DetectionProcessor
 from frame_processor import FrameProcessor
 from tracking_system import TrackingSystem
 from video_stream_manager import VideoStreamManager
-from ai_model_interface import AIModelInterface
+
+# This project requires the usage of computer vision.
+
+# In this case, OpenCV will be used.
+import cv2 as cv
 
 
 # This class serves as a frame pipeline that 
@@ -31,17 +37,17 @@ from ai_model_interface import AIModelInterface
 # then tracks objects over time.
 class FramePipeline:
     """A pipeline that captures frames from a video stream, processes them, 
-    runs AI + detection filtering, then tracks objects over time."""
+    runs YOLO + detection filtering, then tracks objects over time."""
 
     # This method initializes the frame pipeline.
     def __init__(
         self,
-        capture_device=0,
-        frame_width=1280,
-        frame_height=720,
-        target_width=1280,
-        target_height=720,
-        model_path="sign_language_detector_ai.pt",
+        capture_device=1,
+        frame_width=1920,
+        frame_height=1080,
+        target_width=1920,
+        target_height=1080,
+        model_path="drone_detector_12m.pt",
         confidence_threshold=0.5,
         detection_processor=None,
         tracking_system=None
@@ -82,8 +88,7 @@ class FramePipeline:
         # Use a provided detection processor or create 
         # one with default parameters.
         self.detection_processor = detection_processor or DetectionProcessor(
-            target_classes=None, 
-            confidence_threshold=confidence_threshold
+            target_classes=None
         )
 
         # Use a provided tracking system or create one 
@@ -99,20 +104,18 @@ class FramePipeline:
             detections):
         """Draw bounding boxes and centroids on the frame."""
 
-        # Each detection is iterated over. Their bounding box,
-        # confidence, and class ID are extracted.
+        # Each detection is iterated over. Their bounding box
+        # and confidence are extracted.
         for det in detections:
             bbox = det[
                 "bbox"]
             confidence = det[
                 "confidence"]
-            class_id = det[
-                "class_id"]
             x_min, y_min, x_max, y_max = map(
                 int, bbox)
-                
+
             # The label is prepared with the confidence.
-            label = f"{class_id} {confidence:.2f}"
+            label = f"drone {confidence:.3f}"
             font = cv.FONT_HERSHEY_TRIPLEX
             font_scale = 2
             thickness = 4
@@ -168,15 +171,13 @@ class FramePipeline:
     def run(
             self):
         """Captures frames, runs preprocessing + AI + detection processing,
-        then updates the tracking system and displays both YOLO detections
+        then updates the tracking system and displays both AI detections
         and tracked objects in real time."""
 
         try:
-            # Start the video stream.
-            with self.video_stream as stream:
-                logging.info(
-                    "Starting the pipeline with tracking..."
-                    )
+            # Start the video stream and create a thread
+            # pool for concurrent execution of AI model predictions.
+            with self.video_stream as stream, concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
                 
                 # The window view to see the program execution
                 # is through here.
@@ -184,13 +185,13 @@ class FramePipeline:
                 # The window is to be small enough for the user to
                 # see and is meant to automatically popup.
                 cv.namedWindow(
-                    "Sign Language View", 
+                    "Mini C-RAM View", 
                     cv.WINDOW_NORMAL)
                 cv.resizeWindow(
-                    "Sign Language View", 
+                    "Mini C-RAM View", 
                     800, 600)
                 cv.setWindowProperty(
-                    "Sign Language View", 
+                    "Mini C-RAM View", 
                     cv.WND_PROP_TOPMOST, 1)
 
                 # Run as long as frames are available.
@@ -202,13 +203,17 @@ class FramePipeline:
                             )
                         break
 
-                    # This preprocesses frame for the AI model.
+                    # This preprocesses frame for the YOLO model.
                     processed_frame = self.frame_processor.preprocess_frame(
                         frame)
-
-                    # This predicts detections using the AI model.
-                    raw_detections = self.ai_model_interface.predict(
+                    
+                    # This runs the prediction in a separate thread.
+                    future = executor.submit(
+                        self.ai_model_interface.predict, 
                         processed_frame[0])
+
+                    # The results of the prediction are retrieved.
+                    raw_detections = future.result()
                     
                     # This filters detections and adds centroids.
                     processed_detections = self.detection_processor.process_detections(
@@ -218,7 +223,7 @@ class FramePipeline:
                     tracked_objects = self.tracking_system.update(
                         processed_detections)
 
-                    # This draws the AI bounding boxes.
+                    # This draws the YOLO bounding boxes.
                     self.draw_detections(
                         frame, processed_detections
                         )
@@ -230,7 +235,7 @@ class FramePipeline:
 
                     # This displays the frame with tracking.
                     cv.imshow(
-                        "Sign Language View", frame
+                        "Mini C-RAM View", frame
                         )
 
                     # This handles the button 'q' to quit.
@@ -242,10 +247,8 @@ class FramePipeline:
             logging.error(
                 f"Error in FramePipeline run: {e}"
                 )
+            
         # This ensures that resources are released and windows are closed.
         finally:
-            logging.info(
-                "Releasing resources and closing windows."
-                )
             self.video_stream.release_stream()
             cv.destroyAllWindows()
