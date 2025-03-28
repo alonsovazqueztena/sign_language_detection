@@ -42,12 +42,12 @@ class FramePipeline:
     # This method initializes the frame pipeline.
     def __init__(
         self,
-        capture_device=1,
+        capture_device=0,
         frame_width=1920,
         frame_height=1080,
         target_width=1920,
         target_height=1080,
-        model_path="drone_detector_12m.pt",
+        model_path="---",
         confidence_threshold=0.5,
         detection_processor=None,
         tracking_system=None
@@ -115,7 +115,7 @@ class FramePipeline:
                 int, bbox)
 
             # The label is prepared with the confidence.
-            label = f"drone {confidence:.3f}"
+            label = f"{det['label']} {confidence:.3f}"
             font = cv.FONT_HERSHEY_TRIPLEX
             font_scale = 2
             thickness = 4
@@ -137,7 +137,7 @@ class FramePipeline:
             cv.putText(frame, label, 
                        (x_min, y_min - margin), 
                        font, font_scale, 
-                       (0, 255, 0), thickness
+                       (0, 0, 255), thickness
                        )
 
     # This method draws the tracked objects on the frame.
@@ -159,12 +159,12 @@ class FramePipeline:
 
             # This draws bounding box in green for tracking.
             cv.rectangle(frame, (x_min, y_min), 
-                         (x_max, y_max), (0, 255, 0), 2
+                         (x_max, y_max), (0, 0, 255), 2
                          )
 
             # This draws the centroid.
             cv.circle(frame, (int(cx), int(cy)), 
-                      4, (0, 255, 0), -1
+                      4, (0, 0, 255), -1
                       )
 
     # This method runs the frame pipeline.
@@ -185,13 +185,13 @@ class FramePipeline:
                 # The window is to be small enough for the user to
                 # see and is meant to automatically popup.
                 cv.namedWindow(
-                    "Mini C-RAM View", 
+                    "Sign Language View", 
                     cv.WINDOW_NORMAL)
                 cv.resizeWindow(
-                    "Mini C-RAM View", 
+                    "Sign Language View", 
                     800, 600)
                 cv.setWindowProperty(
-                    "Mini C-RAM View", 
+                    "Sign Language View", 
                     cv.WND_PROP_TOPMOST, 1)
 
                 # Run as long as frames are available.
@@ -235,7 +235,7 @@ class FramePipeline:
 
                     # This displays the frame with tracking.
                     cv.imshow(
-                        "Mini C-RAM View", frame
+                        "Sign Language View", frame
                         )
 
                     # This handles the button 'q' to quit.

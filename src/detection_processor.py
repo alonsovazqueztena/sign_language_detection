@@ -27,13 +27,14 @@ class DetectionProcessor:
         # we default to detecting drones.
         if target_classes is None:
             target_classes = [
-                "0", "drone", "quadricopter", "Drone"
+                "A", "B", "C", "D", "E", "F", "G", 
+                "H", "I", "J", "K", "L", "M", "N",
+                "O", "P", "Q", "R", "S", "T", "U",
+                "V", "W", "X", "Y", "Z"
                 ]
-        
-        # The target classes are stored in lowercase for consistency.
-        self.target_classes = [
-            cls.lower() for cls in target_classes
-            ]
+            
+        self.target_classes = target_classes
+
 
     def process_detections(
             self, detections):
@@ -62,7 +63,7 @@ class DetectionProcessor:
                 ]
             label = detection[
                 "label"
-                ].lower()
+                ]
 
             # The bounding box is unpacked into its components.
             x_min, y_min, x_max, y_max = bbox

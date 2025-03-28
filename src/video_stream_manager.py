@@ -45,7 +45,7 @@ class VideoStreamManager:
     # to your device as well as the resolution of
     # your camera.
     def __init__(
-            self, capture_device=1, 
+            self, capture_device=0, 
             frame_width=1920, frame_height=1080,
             max_queue_size=5):
         """Initialize the video stream manager.
