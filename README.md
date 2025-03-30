@@ -324,9 +324,9 @@ git checkout -b feature/new-tracker
 MIT License - See LICENSE for details
 
 ## Maintainers
-- Alonso Vazquez Tena  
-- Daniel Saravia  
-- Jason Broom
+- Alonso Vazquez Tena: AI Engineer
+- Daniel Saravia: Cloud Engineer
+- Jason Broom: Front-End Developer
 
 ## Citations and Acknowledgements
 **YOLO12**  
