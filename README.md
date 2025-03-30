@@ -26,7 +26,7 @@ A sign language detector application using computer vision and YOLO. Predicts le
 ```
 .
 ├── notebooks
-│   └── asl_model_training.ipynb      # AI model training notebook
+│   └── ai_model_training.ipynb       # AI model training notebook
 ├── src
 │   ├── ai_model_interface.py         # AI model wrapper
 │   ├── detection_processor.py        # Filters/processes AI detections
@@ -102,7 +102,7 @@ python main.py
 ```
 .
 ├── notebooks
-│   └── asl_model_training.ipynb      # AI model training notebook
+│   └── ai_model_training.ipynb       # AI model training notebook
 ```
 
 2. Use **Google Colab** to ensure proper functionality and avoidance of dependency issues.
