@@ -15,7 +15,7 @@ model = YOLO("..\src\sign_language_detector.pt")
 # the image size is set to 640, and the processed 
 # image is displayed and saved.
 results = model.predict(
-    "..\images\sign_language_test_1.jpg", conf=0.5, 
+    "..\\test_images\sign_language_test_6.jpg", conf=0.5, 
     imgsz=640, show=True, save=True, project="..\\runs")
 
 # We print the bounding boxes of the detected objects here.
