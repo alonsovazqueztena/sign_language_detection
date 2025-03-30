@@ -1,6 +1,6 @@
 # Alonso Vazquez Tena
-# STG-452: Capstone Project II
-# March 16, 2025
+# SWE-452: Software Development Life Cycle (SDLC) II
+# March 30, 2025
 # I used source code from the following 
 # website to complete this assignment:
 # https://chatgpt.com/share/67a17189-ca30-800e-858d-aac289e6cb56
@@ -42,7 +42,7 @@ class FramePipeline:
     # This method initializes the frame pipeline.
     def __init__(
         self,
-        capture_device=0,
+        capture_device=1,
         frame_width=1920,
         frame_height=1080,
         target_width=1920,
@@ -137,7 +137,7 @@ class FramePipeline:
             cv.putText(frame, label, 
                        (x_min, y_min - margin), 
                        font, font_scale, 
-                       (0, 0, 255), thickness
+                       (230, 216, 173), thickness
                        )
 
     # This method draws the tracked objects on the frame.
@@ -157,14 +157,14 @@ class FramePipeline:
             cx, cy = detection[
                 "centroid"]
 
-            # This draws bounding box in green for tracking.
+            # This draws bounding box in light blue for tracking.
             cv.rectangle(frame, (x_min, y_min), 
-                         (x_max, y_max), (0, 0, 255), 2
+                         (x_max, y_max), (230, 216, 173), 2
                          )
 
             # This draws the centroid.
             cv.circle(frame, (int(cx), int(cy)), 
-                      4, (0, 0, 255), -1
+                      4, (230, 216, 173), -1
                       )
 
     # This method runs the frame pipeline.

@@ -1,11 +1,11 @@
 # Alonso Vazquez Tena
-# STG-452: Capstone Project II
-# March 16, 2025
+# SWE-452: Software Development Life Cycle (SDLC) II
+# March 30, 2025
 # I used source code from the following 
 # website to complete this assignment:
 # https://chatgpt.com/share/67a17189-ca30-800e-858d-aac289e6cb56
 # (used as starter code for basic functionality).
-# capture_device=0 for gopro and phone
+
 # This project requires the usage of logs for the developer
 # to understand the conditions of the system, whether
 # an error has occurred or the execution of the class was a success.
@@ -33,7 +33,7 @@ def test_video_stream_manager():
     try:
         # This initializes the video stream manager.
         video_stream = VideoStreamManager(
-            capture_device=0, frame_width=1920, 
+            capture_device=1, frame_width=1920, 
             frame_height=1080)
         
         # This captures a single frame.
@@ -175,7 +175,7 @@ def test_frame_pipeline():
     try:
         # The frame pipeline is initialized.
         pipeline = FramePipeline(
-            capture_device=0, 
+            capture_device=1, 
             frame_width=1920, 
             frame_height=1080, 
             target_width=1920, 

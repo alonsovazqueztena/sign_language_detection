@@ -1,6 +1,6 @@
 # Alonso Vazquez Tena
-# STG-452: Capstone Project II
-# March 16, 2025
+# SWE-452: Software Development Life Cycle (SDLC) II
+# March 30, 2025
 # I used source code from the following 
 # website to complete this assignment:
 # https://chatgpt.com/share/67a05526-d4d8-800e-8e0d-67b03ca451a8
@@ -45,7 +45,7 @@ class VideoStreamManager:
     # to your device as well as the resolution of
     # your camera.
     def __init__(
-            self, capture_device=0, 
+            self, capture_device=1, 
             frame_width=1920, frame_height=1080,
             max_queue_size=5):
         """Initialize the video stream manager.
