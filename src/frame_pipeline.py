@@ -47,7 +47,7 @@ class FramePipeline:
         frame_height=1080,
         target_width=1920,
         target_height=1080,
-        model_path="---",
+        model_path="sign_language_detector.pt",
         confidence_threshold=0.5,
         detection_processor=None,
         tracking_system=None
