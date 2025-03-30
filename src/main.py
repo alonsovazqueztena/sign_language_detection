@@ -65,7 +65,7 @@ def test_frame_processor():
 
         # This loads a dummy frame for testing.
         dummy_frame = cv.imread(
-            "../images/sign_language_test_1.jpg")
+            "../test_images/sign_language_test_1.jpg")
         
         # If the dummy frame is empty or cannot be found, an error is raised.
         if dummy_frame is None:
@@ -103,7 +103,7 @@ def test_ai_model_interface():
 
         # A test image is loaded for AI.
         test_img = cv.imread(
-            "../images/sign_language_test_1.jpg")
+            "../test_images/sign_language_test_2.jpg")
         
         # If the test image is empty or cannot be found, an error is raised.
         if test_img is None:
@@ -137,7 +137,7 @@ def test_detection_processor():
 
         # The test image is loaded for YOLO.
         test_img = cv.imread(
-            "../images/sign_language_test_2.jpg")
+            "../test_images/sign_language_test_3.jpg")
         
         # If the test image is empty or cannot be found, an error is raised.
         if test_img is None:
