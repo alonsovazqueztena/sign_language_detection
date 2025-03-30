@@ -1,7 +1,10 @@
 # Alonso Vazquez Tena
 # SWE-452: Software Development Life Cycle (SDLC) II
 # March 30, 2025
-# This is my own code.
+# I used source code from the following 
+# website to complete this assignment:
+# https://github.com/alonsovazqueztena/Mini_C-RAM_Capstone
+# (own capstone project).
 
 # We import the AI model's class here.
 from ultralytics import YOLO

@@ -4,9 +4,11 @@
 # I used source code from the following 
 # website to complete this assignment:
 # https://chatgpt.com/share/67a05526-d4d8-800e-8e0d-67b03ca451a8
-# (used as starter code for basic functionality) and
+# (used as starter code for basic functionality),
 # https://chatgpt.com/share/67d77b29-c824-800e-ab25-2cc850596046
-# (used to improve the video stream manager further).
+# (used to improve the video stream manager further), and
+# https://github.com/alonsovazqueztena/Mini_C-RAM_Capstone
+# (own capstone project).
 
 # This project requires the usage of logs for the developer
 # to understand the conditions of the system if

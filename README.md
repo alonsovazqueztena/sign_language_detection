@@ -362,3 +362,7 @@ MIT License - See LICENSE for details
   note = { visited on 2025-03-30 },
 }
 ```
+
+**Main Source Code**
+
+This project was adapted from Alonso Vazquez Tena and Daniel Saravia's AIegis Beam capstone project: https://github.com/alonsovazqueztena/Mini_C-RAM_Capstone.

@@ -4,9 +4,11 @@
 # I used source code from the following 
 # website to complete this assignment:
 # https://chatgpt.com/share/67a17189-ca30-800e-858d-aac289e6cb56
-# (used as starter code for basic functionality) and
+# (used as starter code for basic functionality),
 # https://chatgpt.com/share/67d77b29-c824-800e-ab25-2cc850596046
-# (used to improve the frame pipeline further).
+# (used to improve the frame pipeline further), and
+# https://github.com/alonsovazqueztena/Mini_C-RAM_Capstone
+# (own capstone project).
 
 # This allows for the asynchronous execution of the AI model
 # predictions using threads.

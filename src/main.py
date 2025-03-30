@@ -2,9 +2,11 @@
 # SWE-452: Software Development Life Cycle (SDLC) II
 # March 30, 2025
 # I used source code from the following 
-# website to complete this assignment:
+# websites to complete this assignment:
 # https://chatgpt.com/share/67a17189-ca30-800e-858d-aac289e6cb56
-# (used as starter code for basic functionality).
+# (used as starter code for basic functionality) and
+# https://github.com/alonsovazqueztena/Mini_C-RAM_Capstone
+# (own capstone project).
 
 # This project requires the usage of logs for the developer
 # to understand the conditions of the system, whether

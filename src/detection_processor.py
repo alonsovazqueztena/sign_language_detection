@@ -4,7 +4,9 @@
 # I used source code from the following 
 # website to complete this assignment:
 # https://chatgpt.com/share/67a05526-d4d8-800e-8e0d-67b03ca451a8
-# (used as starter code for basic functionality).
+# (used as starter code for basic functionality) and
+# https://github.com/alonsovazqueztena/Mini_C-RAM_Capstone
+# (own capstone project).
 
 
 # This class processes raw AI detections by 
