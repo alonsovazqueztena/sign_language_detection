@@ -11,11 +11,11 @@ import logging
 
 # All the classes are imported from the src folder
 # to be used in the frame pipeline class.
-from ai_model_interface import AIModelInterface
-from detection_processor import DetectionProcessor
-from frame_processor import FrameProcessor
-from tracking_system import TrackingSystem
-from video_stream_manager import VideoStreamManager
+from .ai_model_interface import AIModelInterface
+from .detection_processor import DetectionProcessor
+from .frame_processor import FrameProcessor
+from .tracking_system import TrackingSystem
+from .video_stream_manager import VideoStreamManager
 
 # This project requires the usage of computer vision.
 # In this case, OpenCV will be used.
