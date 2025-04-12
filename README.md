@@ -9,6 +9,7 @@
 - [Hardware Setup](#hardware-setup)
 - [Model Training](#model-training)
 - [Testing](#testing)
+- [Troubleshooting](#troubleshooting)
 - [Contributing](#contributing)
 - [License](#license)
 - [Maintainers](#maintainers)
@@ -19,7 +20,7 @@ A sign language detector application using computer vision and YOLO. Predicts le
 
 ## Key Features
 - Letter prediction using YOLO12m
-- Webcam streaming (1920x1080)
+- Webcam streaming
 - Friendly, simple user interface
 
 ## System Architecture
@@ -29,9 +30,7 @@ A sign language detector application using computer vision and YOLO. Predicts le
 │   └── ai_model_training.ipynb       # AI model training notebook
 ├── src
 │   ├── ai_model_interface.py         # AI model wrapper
-│   ├── detection_processor.py        # Filters/processes AI detections
 │   ├── frame_pipeline.py             # Main processing workflow
-│   ├── frame_processor.py            # Frame resizing/normalization
 │   ├── main.py                       # Program execution code
 │   ├── sign_language_detector.pt     # YOLO12m sign language detection model
 │   ├── tracking_system.py            # Object tracking implementation
@@ -58,9 +57,9 @@ stream manager
 - Python 3.11.9
 - PIP 25.0.1
 - Windows 11 or Ubuntu 20.04
-- Nvidia GPU (to use CUDA)
-- Computer Webcam
+- Computer Webcam, USB Webcam or IP Camera
 
+Follow these steps to ensure the program can be executed:
 ```bash
 # Clone repository
 git clone https://github.com/alonsovazqueztena/sign_language_detection.git
@@ -78,22 +77,29 @@ pip install -r requirements.txt
 ## Usage
 
 ### Basic Operation
+To execute the sign language detection and tracking software, run this:
 ```bash
 # Execute the program using the source code (must be in src folder)
 python main.py
+python3 main.py # Or also this.
 ```
 
-#### Keyboard Control
+### User Control
+For keyboard control, follow these commands: 
 | Key | Description            |
 |-----|------------------------|
-| q   | Quit camera            |
+| q   | Quit program           |
 
 
 ## Hardware Setup
 **Camera Connection**
-- **USB Webcam**: Plug into available USB port
-- **IP Camera**: Set RTSP URL
-- **Computer Webcam**: Use the computer's own webcam
+
+To set up a USB phone webcam, do the following:
+
+1. Install Iriun Webcam (can be for either Android or iPhone) for both the computer and the phone.
+2. Setup and ensure Iriun Webcam is running on both the phone and computer.
+3. Plug a USB cable into the phone and computer.
+4. Ensure that Iriun Webcam is receiving your video frame.
 
 ## Model Training
 ### General Steps
@@ -110,82 +116,58 @@ python main.py
 3. Ensure that CUDA is installed to allow for proper leveraging of the GPU if available.
 
 ```bash
-# Ensure that CUDA is available to be used for faster, 
-# optimized AI training.
-
-!nvidia-smi
-
-import torch
-
+!nvidia-smi # Check Nvidia GPU.
+import torch # Use GPU for AI training.
 print("torch.cuda.is_available():", torch.cuda.is_available())
-print("torch.cuda.device_count():", torch.cuda.device_count())
+print("torch.cuda.device_count():", torch.cuda.device_count()) 
 ```
 
 4. Replace the following file paths:
 
 ```bash
-# Check if Google Drive is able to
-# be accessed.
-!ls Insert Google Drive path here
+!ls Insert Google Drive path here # Check drive access.
 ```
 
 ```bash
-# If Google Drive is present, remove it
-# to ensure we can mount it again.
-!rm -rf Insert Google Drive path here
+!rm -rf Insert Google Drive path here # Remove to ensure mounting.
 ```
 
 ```bash
-# We import the Google Drive again.
-from google.colab import drive
-
-# We mount the Google Drive.
-drive.mount('Insert Google Drive path here')
+from google.colab import drive # Import drive again.
+drive.mount('Insert Google Drive path here') # Mount drive.
 ```
 
 ```bash
-# Check if we can access the images dataset.
-!ls "Insert images dataset path here"
+!ls "Insert images dataset path here" # Check image dataset access.
 ```
 
 ```bash
-# Load and execute a live feed of the Tensorboard graphs.
-%load_ext tensorboard
-%tensorboard --logdir insert/directory/to/runs/here
+%load_ext tensorboard # Load Tensorboard.
+%tensorboard --logdir insert/directory/to/runs/here # Execute Tensorboard.
 ```
 
 ```bash
-# We take in the Tensorboard log directory.
-tensorboard_log_dir = "Insert Tensorboard log directory path here"
+tensorboard_log_dir = "Insert Tensorboard log directory path here" # Tensorboard log directory.
 ```
 
 ```bash
-# We load in the YOLO model here.
-    model = YOLO(
-        "Insert your YOLO model directory path here")
+model = YOLO("Insert your YOLO model directory path here") # Load YOLO model.
 ```
 
 ```bash
-# We train for one epoch here.
-
-    # We bring in the data through a YAML file, establish
-    # the image size, assign what device we will save (GPU CUDA),
-    # enable automatic saving, save every epoch, set the TensorBoard
-    # log directory, and log each run separately.
-    train_results = model.train(
+train_results = model.train(
         data="Insert your image dataset YAML file path here",
-        epochs=100, imgsz=640, device="cuda", save=True, save_period=1,
-        project=tensorboard_log_dir, name=f"session(insert-number)"
-        )
+        epochs=100, imgsz=640, device="cuda", save=True, save_period=10,
+        project=tensorboard_log_dir, name=f"session(insert-name)"
+        ) # Train YOLO model (YAML file, epochs, image size, GPU or CPU, allowed saving, save period, log, run name).
 ```
 
 5. Execute each cell from top to bottom, one at a time.
 
 6. To check live results of the AI model training, examine the Tensorboard server run in this cell:
 ```bash
-# Load and execute a live feed of the Tensorboard graphs.
-%load_ext tensorboard
-%tensorboard --logdir insert/directory/to/runs/here
+%load_ext tensorboard # Load Tensorboard.
+%tensorboard --logdir insert/directory/to/runs/here # Execute Tensorboard.
 ```
 
 ### Expected Results
@@ -251,22 +233,15 @@ The following results were achieved with the final YOLO12m model used for this p
 
 To test the following modules:
 - **Video Stream Manager**
-- **Frame Processor**
 - **AI Model Interface**
-- **Detection Processor**
 - **Tracking System**
 - **Frame Pipeline**
 
 Run:
 
 ```bash
-# Ensure you are in the correct directory.
-
-cd src
-
-# Run all main module tests of the program.
-
-python main.py
+cd src # Ensure you are in the correct directory.
+python main.py # Run all main module tests of the program.
 ```
 
 ### AI Model Testing
@@ -280,20 +255,15 @@ python main.py
 
 2. Update this filepath to your test image filepath:
 ```bash
-results = model.predict(
-    "insert_test_image_filepath_here", conf=0.5, 
-    imgsz=640, show=True, save=True, project="..\\runs")
+results = model.predict("..\\test_images\sign_language_test_1.jpg", conf=0.5, imgsz=640, show=True, save=True) # Run inference (confidence, image size, display, save prediction).
 ```
 
 3. To test the AI model, run:
 
 ```bash
-# Ensure you are in the correct directory.
-
-cd test
+cd test # Ensure you are in the correct directory.
 
 # Run a sign language detection test on an image (must be in JPG format).
-
 python test_ai.py   # Results in runs folder
 ```
 
@@ -303,6 +273,15 @@ python test_ai.py   # Results in runs folder
 └── runs
     └── predict 
         └── processed_test_image.jpg  # Detection test for AI model
+```
+
+## Troubleshooting
+### ERROR: No frames available.
+Ensure that all the capture device indexes match to your capture device (0 if its an internal webcam, 1 if its an external webcam such as an Iriun webcam or GoPro).
+
+video_stream_manager.py:
+```bash
+def __init__(self, capture_device=0, max_queue_size=10): # Update the capture device index.
 ```
 
 ## Contributing
@@ -316,7 +295,7 @@ git checkout -b feature/new-tracker
 4. Submit a pull request
 
 ### Coding Standards
-- PEP8 compliance
+- Complete concise commenting
 - Docstrings for all modules
 - 80%+ test coverage
 
