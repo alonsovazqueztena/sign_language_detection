@@ -16,9 +16,14 @@ Including another URLconf
 """
 # backend/urls.py
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import include, path
+from django.http import HttpResponse
+
+def hello_view(request):
+    return HttpResponse("Hello!")
 
 urlpatterns = [
+    path('', hello_view, name='hello'),  # Root URL returns "Hello!"
     path('admin/', admin.site.urls),
-    path('api/', include('detectionapi.urls')),  # The API is now accessible under /api/
+    path('api/', include('detectionapi.urls')),
 ]
