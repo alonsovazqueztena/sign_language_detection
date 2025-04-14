@@ -1,23 +1,69 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
-.pytest_cache
 *.py[cod]
 *.pyo
+*.pyc
 
-# Ignore runs generated from the testAI class
-runs
+# Caches
+.pytest_cache/
+runs/
 
-# Environment files
-.env
-
-# Logs
-*.log
-
-# Python virtual environment
+# Python virtual environments
 env/
 venv/
 cap/
 venv-clean/
 
-# Ignore generated files
-*.pyc
+# Environment variables
+.env
+*.env
+
+# Logs
+*.log
+
+# Django migrations cache (optional)
+*/migrations/__pycache__/
+
+# SQLite DB (if you don't want to track this)
+backend/db.sqlite3
+
+# VS Code settings
+.vscode/
+
+# Jupyter notebooks checkpoints
+.ipynb_checkpoints/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Node modules (Next.js frontend)
+client/node_modules/
+client/.next/
+client/.turbo/
+
+# Next.js build output
+client/out/
+
+# Vercel
+client/.vercel/
+
+# Build artifacts
+*.egg-info/
+build/
+dist/
+
+# Testing and coverage
+coverage/
+htmlcov/
+*.cover
+*.py,cover
+.cache/
+.tox/
+
+# TypeScript & lock files
+client/package-lock.json
+client/yarn.lock
+
+# IDEs
+.idea/
