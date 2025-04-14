@@ -26,10 +26,8 @@ export default function Home() {
   const [detections, setDetections] = useState<Detection[] | null>(null);
   const [loading, setLoading] = useState(false);
   const [webcamActive, setWebcamActive] = useState(true);
-
-  // New state to store captured images (we already had this)
   const [capturedImages, setCapturedImages] = useState<CapturedResult[]>([]);
-  // The editable letter chain as an array of strings (one per captured image)
+  // Editable letter chain as an array of strings (one per captured image)
   const [letterChain, setLetterChain] = useState<string[]>([]);
   // Which letter (by index) is currently being edited (if any)
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
@@ -210,7 +208,7 @@ export default function Home() {
       ...prev,
       { timestamp: Date.now(), chain: [...letterChain] }
     ]);
-    // Optionally, clear the current session's chain and captured images
+    // Clear current session's chain and captured images if desired.
     setLetterChain([]);
     setCapturedImages([]);
   };
@@ -227,20 +225,36 @@ export default function Home() {
     URL.revokeObjectURL(url);
   };
 
+  // Create a chain string from the captured detections
+  // (The editable letter chain is stored as an array of letters.)
+  // Slider navigation for previous captures is preserved.
+  const [sliderIndex, setSliderIndex] = useState(0);
+  const nextSlide = () => {
+    setSliderIndex((prev) => (prev + 1) % capturedImages.length);
+  };
+  const prevSlide = () => {
+    setSliderIndex((prev) => (prev - 1 + capturedImages.length) % capturedImages.length);
+  };
+
   return (
     <>
       <Head>
-        <title>Sign Language Detector</title>
+        <title>Sign Language Detector - AHHH</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
       <main>
-        <section className="header">
+        {/* Logo/Header */}
+        <header className="logo-header">
+          <div className="logo">
+            <img src="/a.gif" alt="A" className="logo-letter" />
+            <img src="/h.gif" alt="H" className="logo-letter" />
+            <img src="/h.gif" alt="H" className="logo-letter" />
+            <img src="/h.gif" alt="H" className="logo-letter" />
+          </div>
           <h1>Sign Language Detector</h1>
-          <p>
-            Use your webcam, capture photos, or upload images to detect sign language.
-            You can correct detected letters and save sessions.
-          </p>
-        </section>
+          <p>Use your webcam, capture photos, or upload images to detect sign language.</p>
+        </header>
+
         <section className="container">
           <div className="webcam-container">
             <h2>Webcam Feed</h2>
@@ -303,8 +317,35 @@ export default function Home() {
                 Save Session
               </button>
             </div>
+            {capturedImages.length > 0 && (
+              <div className="slider-toggle">
+                <button className="control-button" onClick={() => setSliderIndex(0)}>
+                  Show Previous Captures
+                </button>
+                <div className="slider-container">
+                  <button className="slider-button" onClick={prevSlide}>
+                    Previous
+                  </button>
+                  <div className="slider-image">
+                    <img
+                      src={capturedImages[sliderIndex].imageUrl}
+                      alt="Previous capture"
+                    />
+                    {capturedImages[sliderIndex].detection && (
+                      <div className="slider-label">
+                        {capturedImages[sliderIndex].detection?.label}
+                      </div>
+                    )}
+                  </div>
+                  <button className="slider-button" onClick={nextSlide}>
+                    Next
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </section>
+
         {sessions.length > 0 && (
           <section className="session-history">
             <h2>Session History</h2>
@@ -338,17 +379,28 @@ export default function Home() {
           font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
           color: #333;
         }
-        .header {
+        .logo-header {
           text-align: center;
           margin-bottom: 30px;
         }
-        h1 {
+        .logo {
+          display: inline-flex;
+          align-items: center;
+          gap: 5px;
+          margin-bottom: 10px;
+        }
+        .logo-letter {
+          height: 50px;
+          width: auto;
+        }
+        header h1 {
           font-size: 2.5rem;
           margin: 0;
         }
-        p {
+        header p {
           font-size: 1.125rem;
           color: #555;
+          margin: 5px 0 20px;
         }
         .container {
           display: flex;
@@ -460,6 +512,47 @@ export default function Home() {
         .session-controls {
           text-align: center;
           margin-bottom: 20px;
+        }
+        .slider-toggle {
+          text-align: center;
+          margin-bottom: 10px;
+        }
+        .slider-container {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+        }
+        .slider-button {
+          padding: 8px 16px;
+          font-size: 0.9rem;
+          background-color: #457b9d;
+          border: none;
+          color: white;
+          border-radius: 5px;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+        }
+        .slider-button:hover {
+          background-color: #1d3557;
+        }
+        .slider-image {
+          position: relative;
+          max-width: 300px;
+        }
+        .slider-image img {
+          width: 100%;
+          border-radius: 8px;
+        }
+        .slider-label {
+          position: absolute;
+          bottom: 5px;
+          left: 5px;
+          background: rgba(230, 57, 70, 0.8);
+          color: white;
+          padding: 2px 6px;
+          border-radius: 4px;
+          font-size: 1rem;
         }
         .session-history {
           background: #fff;
