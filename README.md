@@ -258,5 +258,6 @@ MIT License — see [LICENSE](LICENSE)
 }
 ```
 
-**Project Origin:**  
+**Project Origin**
+
 Adapted from the [AIegis Beam project](https://github.com/alonsovazqueztena/Mini_C-RAM_Capstone)
