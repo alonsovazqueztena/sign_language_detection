@@ -19,6 +19,9 @@
 ---
 
 ## Project Overview
+
+![ASL alphabet picture](asl_picture.png)
+
 A sign language detector application using computer vision and YOLO. The system predicts letters in sign language captured from a webcam frame. It is designed to run on Windows, Linux, and server environments.
 
 ---
@@ -33,7 +36,7 @@ A sign language detector application using computer vision and YOLO. The system 
 
 ## System Architecture
 
-```plaintext
+```
 .
 ├── notebooks
 │   └── ai_model_training.ipynb
@@ -55,20 +58,22 @@ A sign language detector application using computer vision and YOLO. The system 
 
 Django backend:
 
-```plaintext
-backend/
-├── backend/
+```
+backend
+├── backend
 │   ├── asgi.py
 │   ├── __init__.py
 │   ├── settings.py
 │   ├── urls.py
 │   └── wsgi.py
-├── detectionapi/
+├── db.sqlite3
+├── detectionapi
 │   ├── admin.py
 │   ├── api_utils.py
 │   ├── apps.py
 │   ├── __init__.py
-│   ├── migrations/
+│   ├── migrations
+│   │   └── __init__.py
 │   ├── models.py
 │   ├── urls.py
 │   └── views.py
@@ -254,4 +259,4 @@ MIT License — see [LICENSE](LICENSE)
 ```
 
 **Project Origin:**  
-Adapted from the [Mini C-RAM Capstone](https://github.com/alonsovazqueztena/Mini_C-RAM_Capstone)
+Adapted from the [AIegis Beam project](https://github.com/alonsovazqueztena/Mini_C-RAM_Capstone)
